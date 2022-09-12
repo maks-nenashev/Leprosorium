@@ -36,9 +36,11 @@ post '/new' do
 	content = params[:content]
         
 	    if content.length <= 0
-		@error = "Type text!"
+		@error = "Type post text!"
 		return erb :new
 		end
-
+		
+		@db.execute 'INSERT INTO Posts (content, created_date) VALUES (?, datetime ())', [content]
+	
 	erb "You typed: #{content}"
-  end
+  end 
