@@ -13,25 +13,32 @@ before do
 	init_db
   end
 
-configure do
-	#db = get_db
-	db.execute 'CREATE TABLE IF NOT EXISTS "Posts"
+configure do       #Sozdanie SQL
+	db = init_db
+	@db.execute 'CREATE TABLE IF NOT EXISTS  "Posts"
 	  (
 		"id" INTEGER PRIMARY KEY AUTOINCREMENT,
-		"content" TEXT,)'
-	db.close
+		"created_date" DATE,
+		"content" TEXT
+		)'
+	@db.close
    end
 
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
-end
+  end
 
 get '/new' do
 	erb :new
-end
+  end
 
 post '/new' do
 	content = params[:content]
-	
-	erb  "You typed: #{content}"
-end
+        
+	    if content.length <= 0
+		@error = "Type text!"
+		return erb :new
+		end
+
+	erb "You typed: #{content}"
+  end
