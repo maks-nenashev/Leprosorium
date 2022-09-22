@@ -10,12 +10,12 @@ def init_db
   end
 
 before do
-	init_db
+	init_db  # Database Initialization
   end
 
-configure do       #Sozdanie SQL
-	db = init_db
-	@db.execute 'CREATE TABLE IF NOT EXISTS  "Posts"
+configure do             #Sozdanie SQL
+	db = init_db     #CREATE TABLE IF NOT EXISTS 
+	@db.execute 'CREATE TABLE IF NOT EXISTS  "Posts" 
 	  (
 		"id" INTEGER PRIMARY KEY AUTOINCREMENT,
 		"created_date" DATE,
@@ -24,7 +24,7 @@ configure do       #Sozdanie SQL
 	@db.close
    end
 
-get '/' do
+get '/' do                       #Read SQL
 	@results = @db.execute 'SELECT * FROM Posts ORDER BY id DESC'
 	erb :index
   end
@@ -40,7 +40,7 @@ post '/new' do
 		@error = "Type post text!"
 		return erb :new
 		end
-		
+	                            #Zapis w bazu	
 		@db.execute 'INSERT INTO Posts (content, created_date) VALUES (?, datetime ())', [content]
 	
 	erb "You typed: #{content}"
