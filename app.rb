@@ -24,7 +24,7 @@ configure do             #Sozdanie SQL
 	@db.close
    end
 
-get '/' do                       #Read SQL
+get '/' do                       #Read SQL выбераем список постов
 	@results = @db.execute 'SELECT * FROM Posts ORDER BY id DESC'
 	erb :index
   end
@@ -43,5 +43,8 @@ post '/new' do
 	                            #Zapis w bazu	
 		@db.execute 'INSERT INTO Posts (content, created_date) VALUES (?, datetime ())', [content]
 	
-	erb "You typed: #{content}"
-  end 
+	#erb "You typed: #{content}"
+   
+	redirect to '/' #Perenaprowlenie na glawnuy stronicu
+
+end 
