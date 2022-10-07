@@ -2,11 +2,14 @@
  <br/>
 <% @results.each do |post|%>
 
-<p>
+    <p>
      <%= post['content']%>
- <br/>
-  Added at: <%= post['created_date']%>
-</p>
+    <br/>
+    Added at: <%= post['created_date']%>
+    </p>
+                <!Dobawlenie "Comments">
+    <a href="/detalis/<%= post['id'] %>">Comments</a>
+
 <hr/>
 
 <% end %>
