@@ -1,0 +1,20 @@
+<h4>Post Details</h4>
+
+    <p>
+     <%= @row['content']%>
+    <br/>
+    Added at: <%= @row['created_date']%>
+    </p>
+    </br>
+    <h4>Comments:</h4>    
+
+   <form action="/details/<%= @row['id']%>" method="POST" role="form"> <!Atrebut! Podkluczenie formy>
+   <div class="form-floating">                       <!nadpis w okne>
+   <textarea name="content" class="form-control" placeholder="Type comment text here" id="floatingTextarea2" style="height: 100px"></textarea>
+   <br/>
+   <label for="floatingTextarea2">Comments</label> <!podpis pod blokom>
+
+   </div>
+  <button type="submit" class="btn btn-danger">Add comment</button>  
+  </form> 
+  </p>
