@@ -21,6 +21,13 @@ configure do             #Sozdanie SQL
 		"created_date" DATE,
 		"content" TEXT
 		)'
+	@db.execute 'CREATE TABLE IF NOT EXISTS  "Comments" 
+	  (
+		"id" INTEGER PRIMARY KEY AUTOINCREMENT,
+	    "created_date" DATE,
+		"content" TEXT,
+		"post_id" integer
+		)'
 	@db.close
    end
 
@@ -47,7 +54,8 @@ post '/new' do
    
 	redirect to '/' #Perenaprowlenie na glawnuy stronicu
 
-end
+  end
+
 
    #Wywod informacii o poste
 
@@ -56,7 +64,21 @@ get '/details/:post_id' do
 	
 	results = @db.execute 'SELECT * FROM Posts Where id = ?', [post_id]
     @row = results[0]
+    @comments = @db.execute 'SELECT * FROM Comments Where post_id = ? order by id', [post_id]
 
 	erb :details
   end
  
+post '/details/:post_id' do
+	#Poluczaem peremennuy iz urla!
+	post_id = params[:post_id]
+
+	#Poluczaem peremennuy iz post-zaprosa
+	content = params[:content]
+	
+	@db.execute 'INSERT INTO Comments (content, created_date, post_id) 
+	VALUES (?, datetime (),?)', [content,post_id]
+	  
+	 erb redirect to('/details/' + post_id)
+	#erb "You typed comment #{content} for post #{post_id}"
+  end
