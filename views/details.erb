@@ -8,6 +8,12 @@
     </br>
     <h4>Comments:</h4>    
 
+    <% @comments.each do |comment|%>
+    <p>
+    <%= comment['content']%>
+    </p>
+    <% end%>
+
    <form action="/details/<%= @row['id']%>" method="POST" role="form"> <!Atrebut! Podkluczenie formy>
    <div class="form-floating">                       <!nadpis w okne>
    <textarea name="content" class="form-control" placeholder="Type comment text here" id="floatingTextarea2" style="height: 100px"></textarea>
