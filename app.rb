@@ -60,11 +60,14 @@ post '/new' do
    #Wywod informacii o poste
 
 get '/details/:post_id' do
+    #Poluczaem peremennuy iz URLa
 	post_id = params[:post_id]
-	
+    #Poluczaem spisok postow
 	results = @db.execute 'SELECT * FROM Posts Where id = ?', [post_id]
-    @row = results[0]
-    @comments = @db.execute 'SELECT * FROM Comments Where post_id = ? order by id', [post_id]
+    #Wybiraem etot odin post w peremennuy "@row"
+	@row = results[0]
+    #Wybiraem komentarii dla nashego posta
+	@comments = @db.execute 'SELECT * FROM Comments Where post_id = ? order by id', [post_id]
 
 	erb :details
   end
