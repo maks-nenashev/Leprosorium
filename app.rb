@@ -53,20 +53,21 @@ post '/new' do
 	#erb "You typed: #{content}"
    
 	redirect to '/' #Perenaprowlenie na glawnuy stronicu
+   end
 
-  end
-
-
-   #Wywod informacii o poste
+ #Wywod informacii o poste
 
 get '/details/:post_id' do
     #Poluczaem peremennuy iz URLa
 	post_id = params[:post_id]
-    #Poluczaem spisok postow
+    
+	#Poluczaem spisok postow
 	results = @db.execute 'SELECT * FROM Posts Where id = ?', [post_id]
-    #Wybiraem etot odin post w peremennuy "@row"
+    
+	#Wybiraem etot odin post w peremennuy "@row"
 	@row = results[0]
-    #Wybiraem komentarii dla nashego posta
+    
+	#Wybiraem komentarii dla nashego posta
 	@comments = @db.execute 'SELECT * FROM Comments Where post_id = ? order by id', [post_id]
 
 	erb :details
